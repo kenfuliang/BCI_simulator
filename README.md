@@ -10,32 +10,35 @@ We performed four representative decoder algorithms.
 [Placeholder: cite]
 
 ## Installation
-<!-- **Note:** Stabe-Baselines supports Tensorflow versions from 1.8.0 to 1.14.0. Support for Tensorflow 2 API is planned.
+```
+conda create -n env3.5 python=3.5
+conda activate env3.5
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements3.txt
+python3 setup.py install
+cd gym-centerout
+python3 -m pip install -e .
+```
+## Eample
 
-### Prerequisites
-Baselines requires python3 (>=3.5) with the development headers. You'll also need system packages CMake, OpenMPI and zlib. Those can be installed as follows -->
-
-#### Ubuntu
-
-```bash
-
-sudo apt-get update && sudo apt-get install cmake libopenmpi-dev python3-dev zlib1g-dev
+Run pretrained agents
+```
+python3 run.py --decoder=hand --decoder_dt=25 --pretrained_mode=1
+```
+```
+python3 run.py --decoder=FIT --decoder_dt=50 --pretrained_mode=1
+```
+```
+python3 run.py --decoder=ReFIT --decoder_dt=50 --pretrained_mode=1
+```
+```
+python3 run.py --decoder=FORCE --decoder_dt=25 --pretrained_mode=1 --num_channel=192
+```
+```
+python3 run.py --decoder=VKF --decoder_dt=50 --pretrained_mode=1
 ```
 
-### Install using anaconda and pip
-Install the Stable Baselines package:
+Train new agents
 ```
-pip install stable-baselines[mpi]
+python3 run.py --decoder=hand --decoder_dt=25 --learning_epochs=100 --target_radius=80 --acceptance_window=40 --min_acceptance_window=30 --encoder_dt=25 --learning_rate=2.5e-4 --pretrained_mode=0 --max_acceptance_window=120 --zero_coef=1e-2 --smooth_coef=1e-1 --noise_alpha=0
 ```
-
-This includes an optional dependency on MPI, enabling algorithms DDPG, GAIL, PPO1 and TRPO. If you do not need these algorithms, you can install without MPI:
-```
-pip install stable-baselines
-```
-
-Please read the [documentation](https://stable-baselines.readthedocs.io/) for more details and alternatives (from source, using docker).
-
-
-## Example
-
-
