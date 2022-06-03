@@ -49,7 +49,7 @@ python3 run.py --decoder=FIT --decoder_dt=50 --learning_epochs=100 --target_radi
 python3 run.py --decoder=ReFIT --decoder_dt=50 --learning_epochs=100 --target_radius=80 --acceptance_window=40 --min_acceptance_window=25 --learning_rate=2.5e-4 --pretrained_mode=1 --retrain_decoder=1 --max_acceptance_window=120 --zero_coef=3e-3 --smooth_coef=7e-2 --noise_alpha=0
 ```
 ```
-python3 run.py --decoder=FORCE --decoder_dt=25 --learning_epochs=100 --target_radius=80 --acceptance_window=40 --min_acceptance_window=25 --learning_rate=2.5e-4 --pretrained_mode=1 --retrain_decoder=1 --max_acceptance_window=120 --zero_coef=3e-3 --smooth_coef=7e-2 --noise_alpha=0 --num_channel=192
+python3 run.py --decoder=FORCE --decoder_dt=25 --learning_epochs=100 --target_radius=80 --acceptance_window=40 --min_acceptance_window=25 --learning_rate=2.5e-4 --pretrained_mode=1 --retrain_decoder=1 --max_acceptance_window=120 --zero_coef=3e-3 --smooth_coef=7e-2 --noise_alpha=0 --num_channel=96
 ```
 ```
 python3 run.py --decoder=VKF --decoder_dt=50 --learning_epochs=100 --target_radius=80 --acceptance_window=40 --min_acceptance_window=25 --learning_rate=2.5e-4 --pretrained_mode=1 --retrain_decoder=1 --max_acceptance_window=120 --zero_coef=3e-3 --smooth_coef=7e-2 --noise_alpha=0
