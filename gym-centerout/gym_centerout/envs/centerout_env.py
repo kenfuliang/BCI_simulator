@@ -17,7 +17,8 @@ import logging
 from IPython.display import HTML
 
 
-GitHubPath = '/home3/kenfuliang/GitHub/'
+#GitHubPath = '/home3/kenfuliang/GitHub/'
+GitHubPath = '../../'
 
 import sys
 sys.path.append(GitHubPath+"BCI_simulator/code/")
