@@ -272,6 +272,10 @@ class AgentEncoderDecoder():
         elif self.pretrained_mode==3:
             pretrained_agent = "../pretrained/agents/constrained_PPO/hand_agent.zip"
             VKF_agent.load_parameters(pretrained_agent)
+        elif self.pretrained_mode==4:
+            pretrained_agent = "../pretrained/agents/naive_PPO/hand_agent.zip"
+            VKF_agent.load_parameters(pretrained_agent)
+
 
         self.agent = VKF_agent
 
@@ -367,6 +371,11 @@ class AgentEncoderDecoder():
         elif self.pretrained_mode==3:
             pretrained_agent = "../pretrained/agents/constrained_PPO/hand_agent.zip"
             FIT_agent.load_parameters(pretrained_agent)
+        elif self.pretrained_mode==4:
+            pretrained_agent = "../pretrained/agents/naive_PPO/hand_agent.zip"
+            FIT_agent.load_parameters(pretrained_agent)
+
+
 
         self.agent = FIT_agent
 
@@ -458,6 +467,11 @@ class AgentEncoderDecoder():
         elif self.pretrained_mode==3:
             pretrained_agent = "../pretrained/agents/constrained_PPO/hand_agent.zip"
             PVKF_agent.load_parameters(pretrained_agent)
+        elif self.pretrained_mode==4:
+            pretrained_agent = "../pretrained/agents/naive_PPO/hand_agent.zip"
+            PVKF_agent.load_parameters(pretrained_agent)
+
+
 
         self.agent = PVKF_agent
 
@@ -581,10 +595,9 @@ class AgentEncoderDecoder():
             pretrained_agent = "../pretrained/agents/constrained_PPO/hand_agent.zip"
             ReFIT_agent.load_parameters(pretrained_agent)
         elif self.pretrained_mode==4:
-            pretrained_agent = "../notebooks/CAPSZ-pvtpv-ReFIT-Real-b25-b50.zip"
+            pretrained_agent = "../pretrained/agents/naive_PPO/hand_agent.zip"
             ReFIT_agent.load_parameters(pretrained_agent)
-
-
+        
         self.agent = ReFIT_agent
 
         assert ReFIT_agent.smooth_coef == smooth_coef
@@ -684,6 +697,11 @@ class AgentEncoderDecoder():
         elif self.pretrained_mode==3:
             pretrained_agent = "../pretrained/agents/constrained_PPO/hand_agent.zip"
             FORCE_agent.load_parameters(pretrained_agent)
+        elif self.pretrained_mode==4:
+            pretrained_agent = "../pretrained/agents/naive_PPO/hand_agent.zip"
+            FORCE_agent.load_parameters(pretrained_agent)
+
+
 
         self.agent = FORCE_agent
 
