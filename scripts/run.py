@@ -63,9 +63,6 @@ class AgentEncoderDecoder():
         agent.set_env(env_train)
 
         print(env_kwargs['exp_setting'])
-
-
-        b_constrained_PPO = False
     
         for epoch in range(0,learning_epochs):
             ## learning
@@ -104,17 +101,6 @@ class AgentEncoderDecoder():
 
     
                 agent.save(os.path.join(wandb.run.dir,"{}_agent_ep{}.zip".format(decoder_type,epoch+1)))
-
-                ## Once the agent achive good performance, start applying KL constraints. 
-                #if (b_constrained_PPO==False) and (dataset.Statistics().iloc[0]['success_rate']>0.9):
-                #    agent = PPOCAPSZ(MlpPolicy, env_train
-                #                    ,learning_rate= learning_rate
-                #                    ,smooth_coef = smooth_coef
-                #                    ,zero_coef = zero_coef
-                #                    )
-                #    agent.load_parameters(os.path.join(wandb.run.dir,"{}_agent_ep{}.zip".format(decoder_type,epoch+1)))
-                #    print("Set agent's constraints: smooth_coef:{}, zero_coef:{}".format(agent.smooth_coef, agent.zero_coef))
-                #    b_constrained_PPO=True
 
         self.agent=agent
 
@@ -207,8 +193,6 @@ class AgentEncoderDecoder():
         decoder_dt = self.decoder_dt
         M1_delay=self.M1_delay
         PMd_delay=self.PMd_delay
-        obs_delay=self.obs_delay//encoder_dt
-        obs_hand_delay=self.obs_hand_delay//encoder_dt
         noise_alpha = self.noise_alpha
         num_channel=self.num_channel
         learning_epochs=self.learning_epochs
@@ -247,8 +231,6 @@ class AgentEncoderDecoder():
         exp_setting['encoder_refresh_rate']=encoder_dt
         exp_setting['decoder_refresh_rate']=decoder_dt
         env_kwargs = get_VKF_env_kwargs()
-        env_kwargs['obs_delay']=obs_delay
-        env_kwargs['obs_hand_delay']=obs_hand_delay
         env_kwargs['noise_alpha'] = noise_alpha
         env_kwargs['exp_setting']=exp_setting
 
@@ -261,21 +243,12 @@ class AgentEncoderDecoder():
                              ,smooth_coef=smooth_coef
                              ,zero_coef=zero_coef)
 
-        if self.pretrained_mode==0:
-            print("Agent is random initialized")
-        elif self.pretrained_mode==1:
+        if self.pretrained_mode==1:
             pretrained_agent = "../pretrained/agents/constrained_PPO/VKF_agent.zip"
             VKF_agent.load_parameters(pretrained_agent)
         elif self.pretrained_mode==2:
             pretrained_agent = "../pretrained/agents/naive_PPO/VKF_agent.zip"
             VKF_agent.load_parameters(pretrained_agent)
-        elif self.pretrained_mode==3:
-            pretrained_agent = "../pretrained/agents/constrained_PPO/hand_agent.zip"
-            VKF_agent.load_parameters(pretrained_agent)
-        elif self.pretrained_mode==4:
-            pretrained_agent = "../pretrained/agents/naive_PPO/hand_agent.zip"
-            VKF_agent.load_parameters(pretrained_agent)
-
 
         self.agent = VKF_agent
 
@@ -306,8 +279,6 @@ class AgentEncoderDecoder():
         M1_delay=self.M1_delay
         PMd_delay=self.PMd_delay
         noise_alpha = self.noise_alpha
-        obs_delay=self.obs_delay//encoder_dt
-        obs_hand_delay=self.obs_hand_delay//encoder_dt
         num_channel=self.num_channel
         learning_epochs=self.learning_epochs
         wandb = self.wandb
@@ -346,8 +317,6 @@ class AgentEncoderDecoder():
         exp_setting['encoder_refresh_rate']=encoder_dt
         exp_setting['decoder_refresh_rate']=decoder_dt
         env_kwargs = get_FIT_env_kwargs()
-        env_kwargs['obs_delay']=obs_delay
-        env_kwargs['obs_hand_delay']=obs_hand_delay
         env_kwargs['noise_alpha'] = noise_alpha
         env_kwargs['exp_setting']=exp_setting
 
@@ -360,22 +329,13 @@ class AgentEncoderDecoder():
                              ,smooth_coef=smooth_coef
                              ,zero_coef=zero_coef)
 
-        if self.pretrained_mode==0:
-            print("Agent is random initialized")
-        elif self.pretrained_mode==1:
+        if self.pretrained_mode==1:
             pretrained_agent = "../pretrained/agents/constrained_PPO/FIT_agent.zip"
             FIT_agent.load_parameters(pretrained_agent)
         elif self.pretrained_mode==2:
             pretrained_agent = "../pretrained/agents/naive_PPO/FIT_agent.zip"
             FIT_agent.load_parameters(pretrained_agent)
-        elif self.pretrained_mode==3:
-            pretrained_agent = "../pretrained/agents/constrained_PPO/hand_agent.zip"
-            FIT_agent.load_parameters(pretrained_agent)
-        elif self.pretrained_mode==4:
-            pretrained_agent = "../pretrained/agents/naive_PPO/hand_agent.zip"
-            FIT_agent.load_parameters(pretrained_agent)
-
-
+        
 
         self.agent = FIT_agent
 
@@ -404,8 +364,6 @@ class AgentEncoderDecoder():
         decoder_dt = self.decoder_dt
         M1_delay=self.M1_delay
         PMd_delay=self.PMd_delay
-        obs_delay=self.obs_delay//encoder_dt
-        obs_hand_delay=self.obs_hand_delay//encoder_dt
         noise_alpha = self.noise_alpha
         num_channel=self.num_channel
         learning_epochs=self.learning_epochs
@@ -441,8 +399,6 @@ class AgentEncoderDecoder():
         exp_setting['decoder_refresh_rate']=decoder_dt
 
         env_kwargs = get_PVKF_env_kwargs()
-        env_kwargs['obs_delay']=obs_delay
-        env_kwargs['obs_hand_delay']=obs_hand_delay
         env_kwargs['noise_alpha'] = noise_alpha
         env_kwargs['exp_setting']=exp_setting
 
@@ -456,22 +412,12 @@ class AgentEncoderDecoder():
                               ,zero_coef=zero_coef)
 
 
-        if self.pretrained_mode==0:
-            print("Agent is random initialized")
-        elif self.pretrained_mode==1:
+        if self.pretrained_mode==1:
             pretrained_agent = "../pretrained/agents/constrained_PPO/PVKF_agent.zip"
             PVKF_agent.load_parameters(pretrained_agent)
         elif self.pretrained_mode==2:
             pretrained_agent = "../pretrained/agents/naive_PPO/PVKF_agent.zip"
             PVKF_agent.load_parameters(pretrained_agent)
-        elif self.pretrained_mode==3:
-            pretrained_agent = "../pretrained/agents/constrained_PPO/hand_agent.zip"
-            PVKF_agent.load_parameters(pretrained_agent)
-        elif self.pretrained_mode==4:
-            pretrained_agent = "../pretrained/agents/naive_PPO/hand_agent.zip"
-            PVKF_agent.load_parameters(pretrained_agent)
-
-
 
         self.agent = PVKF_agent
 
@@ -502,8 +448,6 @@ class AgentEncoderDecoder():
         decoder_dt = self.decoder_dt
         M1_delay=self.M1_delay
         PMd_delay=self.PMd_delay
-        obs_delay=self.obs_delay//encoder_dt
-        obs_hand_delay=self.obs_hand_delay//encoder_dt
         noise_alpha = self.noise_alpha
         num_channel=self.num_channel
         learning_epochs=self.learning_epochs
@@ -536,8 +480,6 @@ class AgentEncoderDecoder():
             exp_setting['decoder_refresh_rate']=decoder_dt
 
             env_kwargs = get_PVKF_env_kwargs()
-            env_kwargs['obs_delay']=obs_delay
-            env_kwargs['obs_hand_delay']=obs_hand_delay
             env_kwargs['noise_alpha'] = noise_alpha
             env_kwargs['exp_setting']=exp_setting
 
@@ -570,8 +512,6 @@ class AgentEncoderDecoder():
         exp_setting['encoder_refresh_rate']=encoder_dt
         exp_setting['decoder_refresh_rate']=decoder_dt
         env_kwargs = get_ReFIT_env_kwargs()
-        env_kwargs['obs_delay']=obs_delay
-        env_kwargs['obs_hand_delay']=obs_hand_delay
         env_kwargs['noise_alpha'] = noise_alpha
         env_kwargs['exp_setting']=exp_setting
         env_kwargs['acceptance_window']=acceptance_window
@@ -583,21 +523,13 @@ class AgentEncoderDecoder():
                      ,smooth_coef=smooth_coef
                      ,zero_coef=zero_coef)
 
-        if self.pretrained_mode==0:
-            print("Agent is random initialized")
-        elif self.pretrained_mode==1:
+        if self.pretrained_mode==1:
             pretrained_agent = "../pretrained/agents/constrained_PPO/ReFIT_agent.zip"
             ReFIT_agent.load_parameters(pretrained_agent)
         elif self.pretrained_mode==2:
             pretrained_agent = "../pretrained/agents/naive_PPO/ReFIT_agent.zip"
             ReFIT_agent.load_parameters(pretrained_agent)
-        elif self.pretrained_mode==3:
-            pretrained_agent = "../pretrained/agents/constrained_PPO/hand_agent.zip"
-            ReFIT_agent.load_parameters(pretrained_agent)
-        elif self.pretrained_mode==4:
-            pretrained_agent = "../pretrained/agents/naive_PPO/hand_agent.zip"
-            ReFIT_agent.load_parameters(pretrained_agent)
-        
+
         self.agent = ReFIT_agent
 
         assert ReFIT_agent.smooth_coef == smooth_coef
@@ -625,8 +557,6 @@ class AgentEncoderDecoder():
         decoder_dt = self.decoder_dt
         M1_delay=self.M1_delay
         PMd_delay=self.PMd_delay
-        obs_delay=self.obs_delay//encoder_dt
-        obs_hand_delay=self.obs_hand_delay//encoder_dt
         noise_alpha = self.noise_alpha
         num_channel=self.num_channel
         learning_epochs=self.learning_epochs
@@ -650,7 +580,7 @@ class AgentEncoderDecoder():
             FORCE.learnFromData(data_hand)
             FORCE.learnFromData(data_hand)
         else:
-            pretrained_model = "../notebooks/wandb/run-20220128_124212-3q7w1ozq/files/FORCE.npz"
+            pretrained_model = "../pretrained/decoders/FORCE.npz"
             FORCE.load(pretrained_model)
 
         FORCE.save(wandb.run.dir)
@@ -670,8 +600,6 @@ class AgentEncoderDecoder():
         exp_setting['decoder_refresh_rate']=decoder_dt
 
         env_kwargs = get_FORCE_env_kwargs()
-        env_kwargs['obs_delay']=obs_delay
-        env_kwargs['obs_hand_delay']=obs_hand_delay
         env_kwargs['noise_alpha'] = noise_alpha
         env_kwargs['exp_setting']=exp_setting
     
@@ -684,24 +612,12 @@ class AgentEncoderDecoder():
                                 ,smooth_coef=smooth_coef
                                 ,zero_coef=zero_coef)
 
-
-
-        if self.pretrained_mode==0:
-            print("Agent is random initialized")
-        elif self.pretrained_mode==1:
+        if self.pretrained_mode==1:
             pretrained_agent = "../pretrained/agents/constrained_PPO/FORCE_agent.zip"
             FORCE_agent.load_parameters(pretrained_agent)
         elif self.pretrained_mode==2:
             pretrained_agent = "../pretrained/agents/naive_PPO/FORCE_agent.zip"
             FORCE_agent.load_parameters(pretrained_agent)
-        elif self.pretrained_mode==3:
-            pretrained_agent = "../pretrained/agents/constrained_PPO/hand_agent.zip"
-            FORCE_agent.load_parameters(pretrained_agent)
-        elif self.pretrained_mode==4:
-            pretrained_agent = "../pretrained/agents/naive_PPO/hand_agent.zip"
-            FORCE_agent.load_parameters(pretrained_agent)
-
-
 
         self.agent = FORCE_agent
 
@@ -731,19 +647,12 @@ if __name__ == '__main__':
     wandb.init(project="BMI-simulator", entity="kenfuliang")
 
     parser = ArgumentParser()
-    parser.add_argument('--encoder_dt', type=int, default=25)
-    parser.add_argument('--encoder_date', type=str, default='20220105')
-    parser.add_argument('--monkey_date', type=str, default='0512')
     parser.add_argument('--decoder_dt', type=int, default=25)
     parser.add_argument('--M1_delay', type=int, default=8)
     parser.add_argument('--PMd_delay', type=int, default=8)
     parser.add_argument('--noise_alpha', type=float, default=0)
-    parser.add_argument('--obs_delay', type=int, default=0) # (ms)
-    parser.add_argument('--obs_hand_delay', type=int, default=0) # (ms)
     parser.add_argument('--learning_epochs', type=int, default=0)
-    parser.add_argument('--num_channel',type=int, default=192)
     parser.add_argument('--decoder', type=str, default='hand')
-    parser.add_argument('--ke', type=float, default=1.0)
     parser.add_argument('--learning_rate',type=float, default=2.5e-4)
     parser.add_argument('--smooth_coef', type=float, default=7e-2)
     parser.add_argument('--zero_coef', type=float, default=3e-3)
@@ -751,14 +660,18 @@ if __name__ == '__main__':
     parser.add_argument('--pretrained_mode', type=int,default=1)
     parser.add_argument('--target_radius', type=int,default=80)
     parser.add_argument('--acceptance_window', type=int,default=40)
-    parser.add_argument('--min_acceptance_window', type=int,default=30)
+    parser.add_argument('--min_acceptance_window', type=int,default=25)
     parser.add_argument('--max_acceptance_window', type=int,default=120)
 
     args = parser.parse_args()
 
+    args = vars(args)   
+    args['encoder'] = "Seq2Seq_stateful_b25_20220105_r192_decay0.01_ke1.0_re0_delayed88_extraBins0_0512_ep4.h5"
+    args['num_channel'] = 96 if args['decoder']=='FORCE' else 192
+    args['encoder_dt'] = 25
+    args['decoder_dt'] = 25 if args['decoder'] in {'hand','FORCE'} else 50
+
     wandb.config.update(args) # adds all of the arguments as config variables
 
-    args = vars(args)
-    args['encoder'] = "Seq2Seq_stateful_b{}_{}_r192_decay0.01_ke{}_re0_delayed{}{}_extraBins0_{}_ep4.h5".format(args['encoder_dt'],args['encoder_date'],args['ke'],args['M1_delay'],args['PMd_delay'],args['monkey_date'])
     AgentEncoderDecoder(wandb,**args).sim()
 
