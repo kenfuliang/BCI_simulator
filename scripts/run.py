@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 from stable_baselines.common.policies import MlpPolicy
 from stable_baselines.algos import PPOCAPSZ
 from stable_baselines.common.cmd_util import make_vec_env
-from gym_centerout.envs.centerout_env import CenteroutEnv, get_exp_setting,get_hand_env_kwargs,get_FIT_env_kwargs,get_ReFIT_env_kwargs,get_FORCE_env_kwargs, get_VKF_env_kwargs
+from gym_centerout.envs.centerout_env import CenteroutEnv, get_exp_setting,get_hand_env_kwargs,get_FIT_env_kwargs,get_ReFIT_env_kwargs,get_FORCE_env_kwargs, get_VKF_env_kwargs, get_PVKF_env_kwargs
 from Dataset import RLDataset
 from decoder.kalman import KFDecoder
 from decoder.FORCE import FORCEDecoder
