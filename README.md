@@ -11,6 +11,7 @@ We performed four representative decoder algorithms.
 
 ## Installation
 ```
+cd BCI_simulator
 conda create -n env3.5 python=3.5
 conda activate env3.5
 python3 -m pip install --upgrade pip
@@ -18,39 +19,39 @@ python3 -m pip install -r requirements3.txt
 python3 setup.py install
 cd gym-centerout
 python3 -m pip install -e .
+cd ../scripts/
 ```
 ## Eample
-
 Run pretrained agents
 ```
-python3 run.py --decoder=hand --decoder_dt=25 --pretrained_mode=1
+python3 run.py --decoder=hand
 ```
 ```
-python3 run.py --decoder=FIT --decoder_dt=50 --pretrained_mode=1
+python3 run.py --decoder=FIT
 ```
 ```
-python3 run.py --decoder=ReFIT --decoder_dt=50 --pretrained_mode=1
+python3 run.py --decoder=ReFIT
 ```
 ```
-python3 run.py --decoder=FORCE --decoder_dt=25 --pretrained_mode=1 --num_channel=192
+python3 run.py --decoder=FORCE
 ```
 ```
-python3 run.py --decoder=VKF --decoder_dt=50 --pretrained_mode=1
+python3 run.py --decoder=VKF
 ```
 
 Train new agents
 ```
-python3 run.py --decoder=hand --decoder_dt=25 --learning_epochs=100 --target_radius=80 --acceptance_window=40 --min_acceptance_window=25 --learning_rate=2.5e-4 --pretrained_mode=0 --max_acceptance_window=120 --zero_coef=3e-3 --smooth_coef=7e-2 --noise_alpha=0
+python3 run.py --decoder=hand --learning_epochs=100 
 ```
 ```
-python3 run.py --decoder=FIT --decoder_dt=50 --learning_epochs=100 --target_radius=80 --acceptance_window=40 --min_acceptance_window=25 --learning_rate=2.5e-4 --pretrained_mode=1 --retrain_decoder=1 --max_acceptance_window=120 --zero_coef=3e-3 --smooth_coef=7e-2 --noise_alpha=0
+python3 run.py --decoder=FIT --learning_epochs=100 --retrain_decoder=1 
 ```
 ```
-python3 run.py --decoder=ReFIT --decoder_dt=50 --learning_epochs=100 --target_radius=80 --acceptance_window=40 --min_acceptance_window=25 --learning_rate=2.5e-4 --pretrained_mode=1 --retrain_decoder=1 --max_acceptance_window=120 --zero_coef=3e-3 --smooth_coef=7e-2 --noise_alpha=0
+python3 run.py --decoder=ReFIT --learning_epochs=100 --retrain_decoder=1 
 ```
 ```
-python3 run.py --decoder=FORCE --decoder_dt=25 --learning_epochs=100 --target_radius=80 --acceptance_window=40 --min_acceptance_window=25 --learning_rate=2.5e-4 --pretrained_mode=1 --retrain_decoder=1 --max_acceptance_window=120 --zero_coef=3e-3 --smooth_coef=7e-2 --noise_alpha=0 --num_channel=96
+python3 run.py --decoder=FORCE --learning_epochs=100 --retrain_decoder=1 
 ```
 ```
-python3 run.py --decoder=VKF --decoder_dt=50 --learning_epochs=100 --target_radius=80 --acceptance_window=40 --min_acceptance_window=25 --learning_rate=2.5e-4 --pretrained_mode=1 --retrain_decoder=1 --max_acceptance_window=120 --zero_coef=3e-3 --smooth_coef=7e-2 --noise_alpha=0
+python3 run.py --decoder=VKF --learning_epochs=100 --retrain_decoder=1 
 ```
